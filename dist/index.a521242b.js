@@ -587,9 +587,9 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _auto = require("chart.js/auto");
 var _autoDefault = parcelHelpers.interopDefault(_auto);
-// 我們從特殊的 Chart.js/auto 路徑匯入 Chart，即主要的 Chart.js 類別。 它會載入所有可用的 Chart.js 元件（這非常方便），但不允許進行 tree-shaking。 我們稍後會解決這個問題。
+// 我們從特殊的 Chart.js/auto 路徑匯入 Chart，即主要的 Chart.js 類別。 它會載入所有可用的 Chart.js 元件（這非常方便），但不允許進行 tree-shaking。
 (async function() {
-    const data = [
+    const yearGrowRate = [
         {
             year: 2014,
             growRate: 4.72
@@ -630,17 +630,91 @@ var _autoDefault = parcelHelpers.interopDefault(_auto);
             year: 2023,
             growRate: 1.31
         }
-    ];
+    ]; //裝有年份及經濟成長率的物件陣列
+    //以ES6中const宣告，避免資料內容被意外修改
+    const yearGDP = [
+        {
+            year: 2014,
+            GDP: 16258047
+        },
+        {
+            year: 2015,
+            GDP: 17055080
+        },
+        {
+            year: 2016,
+            GDP: 17555268
+        },
+        {
+            year: 2017,
+            GDP: 17983347
+        },
+        {
+            year: 2018,
+            GDP: 18375022
+        },
+        {
+            year: 2019,
+            GDP: 18908632
+        },
+        {
+            year: 2020,
+            GDP: 19914806
+        },
+        {
+            year: 2021,
+            GDP: 21663231
+        },
+        {
+            year: 2022,
+            GDP: 22679843
+        },
+        {
+            year: 2023,
+            GDP: 23550853
+        }
+    ]; //裝有年份及GDP的物件陣列
     new (0, _autoDefault.default)(document.getElementById("acquisitions"), {
-        type: "line",
+        //   type: 'line', //我們只需要提供一個圖表類型（長條圖）並提供由標籤（通常是資料點的數字或文字描述）和資料集數組組成的資料（Chart.js 支援大多數圖表類型的多個資料集）。 每個資料集都指定有一個標籤並包含一組資料點。
         data: {
-            labels: data.map((row)=>row.year),
+            labels: yearGrowRate.map((row)=>row.year),
             datasets: [
                 {
+                    type: "line",
                     label: "GDP\u6210\u9577\u7387",
-                    data: data.map((row)=>row.growRate)
+                    data: yearGrowRate.map((row)=>row.growRate),
+                    yAxisID: "growRate",
+                    backgroundColor: "#FF8000",
+                    borderColor: "#FF7575"
+                },
+                {
+                    type: "bar",
+                    label: "\u540D\u76EEGDP\uFF08\u767E\u842C\u5143\uFF09",
+                    data: yearGDP.map((row)=>row.GDP),
+                    yAxisID: "GDP",
+                    backgroundColor: "#7AFEC6"
                 }
             ]
+        },
+        options: {
+            scales: {
+                GDP: {
+                    position: "right"
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: [
+                        "\u81FA\u7063GDP\u8207\u7D93\u6FDF\u6210\u9577\u7387",
+                        "2014~2023\u5E74"
+                    ],
+                    padding: {
+                        top: 10,
+                        bottom: 30
+                    }
+                }
+            }
         }
     });
 })();
