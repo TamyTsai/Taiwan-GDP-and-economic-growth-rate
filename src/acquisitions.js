@@ -33,7 +33,7 @@ import Chart from 'chart.js/auto'
 new Chart( //我們實例化一個新的 Chart 實例並提供兩個參數：將呈現圖表的畫布元素和選項物件。
     document.getElementById('acquisitions'),
     {
-    //   type: 'line', //我們只需要提供一個圖表類型（長條圖）並提供由標籤（通常是資料點的數字或文字描述）和資料集數組組成的資料（Chart.js 支援大多數圖表類型的多個資料集）。 每個資料集都指定有一個標籤並包含一組資料點。
+    //   type: 'line', //我們只需要提供一個圖表類型 並提供由標籤（通常是資料點的數字或文字描述）和資料集數組組成的資料（Chart.js 支援大多數圖表類型的多個資料集）。 每個資料集都指定有一個標籤並包含一組資料點。
       data: {
         labels: yearGrowRate.map(row => row.year), //底下橫軸標示 //使用ES6方法及箭頭函式寫法，抓出yearGrowRate物件陣列中 物件中year屬性對應的值，形成新陣列
         datasets: [ //資料組 物件陣列
